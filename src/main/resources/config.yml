@@ -1,0 +1,9 @@
+# 設置概率
+
+# 0.0 - 1.0
+# 0.2 == 20%
+EnchantItem: 0.2
+EnchantBook: 0.5
+
+# 設置提示 （MiniMessage 支援） %s 為内部變量 請勿刪除
+Message: "<gold>[<aqua><bold>🐟<reset><gold>] <aqua>你的 %s 被 BallKing 吃掉了!"

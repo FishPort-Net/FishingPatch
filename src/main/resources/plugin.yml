@@ -1,0 +1,5 @@
+name: FishingPatch
+version: '${project.version}'
+main: cn.iasoc.fishingpatch.FP
+api-version: '1.20'
+folia-supported: true
