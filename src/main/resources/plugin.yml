@@ -1,5 +1,28 @@
-name: FishingPatch
+name: FishInControl
 version: '${project.version}'
-main: cn.iasoc.fishingpatch.FP
+main: net.fishport.fishincontrol.FishInControl
 api-version: '1.20'
 folia-supported: true
+
+#libraries:
+#  - net.kyori:adventure-api:4.17.0
+#  - net.kyori:adventure-text-minimessage:4.17.0
+
+commands:
+  fishincontrol:
+    aliases: [fic]
+    usage: /<command> reload
+    permission: fisnincontrol.admin
+
+permissions:
+  fisnincontrol.admin:
+    description: Allows reloading config file with /fisnincontrol reload.
+    default: op
+
+  fisnincontrol.bypass:
+    description: Bypass item replacement.
+    default: false
+
+  fisnincontrol.forced:
+    description: forced item replacement.
+    default: false

@@ -5,5 +5,22 @@
 EnchantItem: 0.2
 EnchantBook: 0.5
 
-# 設置提示 （MiniMessage 支援） %s 為内部變量 請勿刪除
-Message: "<gold>[<aqua><bold>🐟<reset><gold>] <aqua>你的 %s 被 BallKing 吃掉了!"
+# 战利品幸运度等级 设置为0至-1为随机
+DefaultLootingLevel: 1
+
+# 完全替换, 设置为 true 则完全使用 LootItems 设置的物品
+FullReplacement: false
+# 替代的物品
+LootItems:
+  salmon:
+    weight: 100 # 权重
+    item:
+      ==: org.bukkit.inventory.ItemStack
+      v: 3465 # Keep this
+      type: SALMON # 物品ID
+
+# 进行概率替换的提示 (支持 MiniMessage)
+# <item> - 原物品
+# <item_replaced> - 被替换的新物品
+MessageOnReplace: false
+Message: "<gold>[<aqua><bold>🐟<reset><gold>] <aqua>你的 <item> 被鱼吃掉了!"
