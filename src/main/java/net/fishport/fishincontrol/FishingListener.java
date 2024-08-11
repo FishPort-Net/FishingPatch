@@ -34,7 +34,7 @@ public class FishingListener implements Listener {
             ItemStack itemStack = item.getItemStack();
             boolean shouldReplace = false;
 
-            if (plugin.getConfig().getBoolean("FullReplacement", false) || player.hasPermission("fisnincontrol.forced")) {
+            if (plugin.getConfig().getBoolean("FullReplacement", false) || player.hasPermission("fishincontrol.forced")) {
                 shouldReplace = true;
             } else if(!itemStack.getEnchantments().isEmpty()){
                 if(random.nextDouble() < Math.min(plugin.getConfig().getDouble("EnchantItem" ,0.0), 1.0)){

@@ -12,17 +12,17 @@ commands:
   fishincontrol:
     aliases: [fic]
     usage: /<command> reload
-    permission: fisnincontrol.admin
+    permission: fishincontrol.admin
 
 permissions:
-  fisnincontrol.admin:
-    description: Allows reloading config file with /fisnincontrol reload.
+  fishincontrol.admin:
+    description: Allows reloading config file with /fishincontrol reload.
     default: op
 
-  fisnincontrol.bypass:
+  fishincontrol.bypass:
     description: Bypass item replacement.
     default: false
 
-  fisnincontrol.forced:
+  fishincontrol.forced:
     description: forced item replacement.
     default: false
