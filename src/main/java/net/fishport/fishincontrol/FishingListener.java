@@ -84,7 +84,8 @@ public class FishingListener implements Listener {
 
         switch (rnd) {
             case 0 -> {
-                var entity = p.getWorld().dropItemNaturally(p.getEyeLocation(), new ItemStack(Material.FISHING_ROD));
+                var entity = p.getWorld().dropItemNaturally(p.getEyeLocation(), event.getItem());
+                p.getInventory().remove(event.getItem());
                 // 模拟玩家抛出物品的velocity
                 entity.setVelocity(p.getLocation().getDirection().multiply(0.5).add(p.getLocation().getDirection().crossProduct(p.getLocation().getDirection()).multiply(0.1)));
             }
