@@ -4,13 +4,16 @@ import net.kyori.adventure.text.minimessage.MiniMessage;
 import net.kyori.adventure.text.minimessage.tag.resolver.Placeholder;
 import net.kyori.adventure.text.serializer.plain.PlainTextComponentSerializer;
 import org.bukkit.Material;
+import org.bukkit.Sound;
 import org.bukkit.entity.Item;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerFishEvent;
+import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.Random;
 
@@ -23,7 +26,7 @@ public class FishingListener implements Listener {
     }
 
     @EventHandler(ignoreCancelled=true, priority= EventPriority.HIGH)
-    public void onPlayerFish(PlayerFishEvent event) {
+    public void onPlayerFish(@NotNull PlayerFishEvent event) {
         final Player player = event.getPlayer();
 
         if (event.getState().equals(PlayerFishEvent.State.CAUGHT_FISH)) {
@@ -64,6 +67,35 @@ public class FishingListener implements Listener {
                 }
 
                 item.setItemStack(newItemStack);
+            }
+        }
+    }
+
+    @EventHandler
+    public void onPlayerTryFishing(PlayerInteractEvent event) {
+        if (!event.getAction().isRightClick()) return;
+        if (event.getItem() == null || event.getItem().getType() != Material.FISHING_ROD) return;
+        Player player = event.getPlayer();
+        if (player.hasPermission("fishincontrol.fishing")) return;
+        event.setCancelled(true);
+        var p = event.getPlayer();
+        var rnd = new Random().nextInt(3);
+        // 0 = 抛出鱼竿物品, 1 = 损坏鱼竿, 2 = 鱼竿变成3木棍
+
+        switch (rnd) {
+            case 0 -> {
+                var entity = p.getWorld().dropItemNaturally(p.getEyeLocation(), new ItemStack(Material.FISHING_ROD));
+                // 模拟玩家抛出物品的velocity
+                entity.setVelocity(p.getLocation().getDirection().multiply(0.5).add(p.getLocation().getDirection().crossProduct(p.getLocation().getDirection()).multiply(0.1)));
+            }
+            case 1 -> {
+                p.getInventory().remove(event.getItem());
+                p.playSound(p, Sound.ENTITY_ITEM_BREAK, 1.0f, 1.0f);
+            }
+            case 2 -> {
+                assert event.getHand() != null;
+                p.getInventory().setItem(event.getHand(), new ItemStack(Material.STICK, 3));
+                p.playSound(p, Sound.ENTITY_ITEM_BREAK, 1.0f, 1.0f);
             }
         }
     }
